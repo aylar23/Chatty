@@ -5,9 +5,12 @@ import com.aylar.chatty.domain.model.Avatars
 import com.aylar.chatty.domain.model.GetCurrentUserProfile
 import com.aylar.chatty.domain.model.UserUpdate
 import com.aylar.chatty.domain.repository.UserRepository
+import javax.inject.Inject
 
 
-class UserRepositoryImpl(private val userService: UserService) : UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val userService: UserService
+) : UserRepository {
 
     override suspend fun getCurrentUser(): Result<GetCurrentUserProfile> {
         return try {

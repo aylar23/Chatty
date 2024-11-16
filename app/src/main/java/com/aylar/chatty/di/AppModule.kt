@@ -2,8 +2,13 @@ package com.aylar.chatty.di
 
 import com.aylar.chatty.data.remote.AuthService
 import com.aylar.chatty.data.remote.UserService
+import com.aylar.chatty.data.repository.AuthRepositoryImp
+import com.aylar.chatty.data.repository.UserRepositoryImpl
 import com.aylar.chatty.data.utils.SynchronizedAuthenticator
+import com.aylar.chatty.domain.repository.AuthRepository
+import com.aylar.chatty.domain.repository.UserRepository
 import com.google.gson.GsonBuilder
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +30,7 @@ annotation class OtherInterceptorOkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+abstract class AppModule {
 
     companion object{
         const val BASE_URL = "https://plannerok.ru"
@@ -83,5 +88,17 @@ class AppModule {
     fun provideApiService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(
+        userRepositoryImpl: UserRepositoryImpl
+    ): UserRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(
+        authRepositoryImpl: AuthRepositoryImp
+    ): AuthRepository
 
 }
