@@ -10,7 +10,6 @@ import com.aylar.chatty.domain.model.Token
 import com.aylar.chatty.domain.repository.AuthRepository
 import javax.inject.Inject
 
-
 class AuthRepositoryImp @Inject constructor(
     private val authService: AuthService
 ) : AuthRepository {

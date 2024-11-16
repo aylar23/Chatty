@@ -28,7 +28,7 @@ fun ChattyNavGraph(
             LoginScreen(
                 loginViewModel = hiltViewModel(),
                 onContinue = {
-                    navController.navigate("${Screen.Verification.route}/${it}")
+                    navController.navigate("${Screen.Verification.route}")
                 }
             )
         }

@@ -30,7 +30,7 @@ annotation class OtherInterceptorOkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
+class AppModule {
 
     companion object{
         const val BASE_URL = "https://plannerok.ru"
@@ -88,17 +88,5 @@ abstract class AppModule {
     fun provideApiService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
-
-    @Binds
-    @Singleton
-    abstract fun bindUserRepository(
-        userRepositoryImpl: UserRepositoryImpl
-    ): UserRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindAuthRepository(
-        authRepositoryImpl: AuthRepositoryImp
-    ): AuthRepository
 
 }

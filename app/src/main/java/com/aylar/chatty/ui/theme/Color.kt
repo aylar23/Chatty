@@ -12,6 +12,7 @@ val LightMessageReceived = Color(0xFFE0E0E0)
 val LightMessageSent = Color(0xFFDCEDC8)
 val LightTextPrimary = Color(0xFF212121)
 val LightTextSecondary = Color(0xFF757575)
+val LightSecondaryContainer = Color(0xFFB0B0B0)
 
 // Dark Theme Colors
 val DarkBackground = Color(0xFF121212)
@@ -23,3 +24,4 @@ val DarkMessageReceived = Color(0xFF2A2A2A)
 val DarkMessageSent = Color(0xFF4CAF50)
 val DarkTextPrimary = Color(0xFFE0E0E0)
 val DarkTextSecondary = Color(0xFFB0B0B0)
+val DarkSecondaryContainer = Color(0xFF424242)

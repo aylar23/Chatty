@@ -7,7 +7,6 @@ import com.aylar.chatty.domain.model.UserUpdate
 import com.aylar.chatty.domain.repository.UserRepository
 import javax.inject.Inject
 
-
 class UserRepositoryImpl @Inject constructor(
     private val userService: UserService
 ) : UserRepository {
