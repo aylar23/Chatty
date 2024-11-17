@@ -51,7 +51,7 @@ fun CodeVerificationScreen(
     verifyViewModel: VerificationViewModel,
     phoneNumber: String,
     logIn: () -> Unit,
-    register: () -> Unit
+    register: (String) -> Unit
 ) {
 
     val uiState by verifyViewModel.uiState.collectAsState()
@@ -129,7 +129,7 @@ fun CodeVerificationScreen(
                         phoneNumber,
                         it,
                         onSuccess = { isUserExists ->
-                            if (isUserExists)logIn() else register()
+                            if (isUserExists)logIn() else register(phoneNumber)
                         },
                         onFailure = {
                             isTextFieldError = true

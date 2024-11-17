@@ -65,7 +65,9 @@ class VerificationViewModel @Inject constructor(
             try {
                  authRepository.checkAuthCode(phone, code)
                     .onSuccess { res ->
-                        saveToken(res)
+                        if (res.isUserExists){
+                            saveToken(res)
+                        }
                         onSuccess(res.isUserExists)
                     }
                     .onFailure {t ->
@@ -137,6 +139,5 @@ class VerificationViewModel @Inject constructor(
 
     companion object {
         const val TIME = 60
-        const val TIME_DEV = 10
     }
 }

@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aylar.chatty.ui.screens.login.LoginScreen
+import com.aylar.chatty.ui.screens.register.RegistrationScreen
 import com.aylar.chatty.ui.screens.verification.CodeVerificationScreen
 
 
@@ -46,14 +47,28 @@ fun ChattyNavGraph(
                     logIn = {
                         navController.navigate(Screen.Dialogs.route)
                     },
-                    register = {
-                        navController.navigate(Screen.Registration.route)
+                    register = { phone ->
+                        navController.navigate("${Screen.Registration.route}/$phone")
                     }
                 )
             }
         }
 
-        composable(Screen.Registration.route) {}
+        composable(
+            route = "${Screen.Registration.route}/{phone}", arguments = listOf(
+                navArgument("phone") { type = NavType.StringType },
+            )
+        ) { entry ->
+            entry.arguments?.getString("phone")?.let { phone ->
+                RegistrationScreen(
+                    phone = phone,
+                    registrationViewModel = hiltViewModel(),
+                    onSuccess = {
+                        navController.navigate(Screen.Dialogs.route)
+                    }
+                )
+            }
+        }
 
         composable(Screen.Dialogs.route) {}
 

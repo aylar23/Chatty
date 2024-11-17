@@ -11,4 +11,10 @@
     <string name="incorrect_code">Incorrect code</string>
     <string name="enter_code">Enter verification code</string>
     <string name="verification">Verification</string>
+    <string name="registration">Registration</string>
+    <string name="registration_desc">Fields for entering a name and a username, with the username allowing A-Z, a-z, 0-9, and -_.</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone number</string>
 </resources>
