@@ -2,8 +2,8 @@ package com.aylar.chatty.data.utils
 
 import android.util.Log
 import com.aylar.chatty.data.remote.AuthService
-import com.aylar.chatty.data.utils.SharedPreferenceHelper.Companion.ACCESSTOKEN
-import com.aylar.chatty.data.utils.SharedPreferenceHelper.Companion.REFRESHTOKEN
+import com.aylar.chatty.data.utils.SharedPreferenceHelper.Companion.ACCESS_TOKEN
+import com.aylar.chatty.data.utils.SharedPreferenceHelper.Companion.REFRESH_TOKEN
 import com.aylar.chatty.domain.model.RefreshToken
 import com.aylar.chatty.domain.model.Token
 import okhttp3.Interceptor
@@ -47,11 +47,11 @@ class SynchronizedAuthenticator @Inject constructor(
     }
 
     private fun getAccessToken(): String? {
-        return sharedPreferenceHelper.getString(ACCESSTOKEN)
+        return sharedPreferenceHelper.getString(ACCESS_TOKEN)
     }
 
     private fun refreshTokenWithCode(): String? {
-        val refreshToken = sharedPreferenceHelper.getString(REFRESHTOKEN) ?: return null
+        val refreshToken = sharedPreferenceHelper.getString(REFRESH_TOKEN) ?: return null
 
         return try {
             val requestBody = RefreshToken(refreshToken)
@@ -78,8 +78,8 @@ class SynchronizedAuthenticator @Inject constructor(
 
     private fun updateToken(token: Token){
         with(sharedPreferenceHelper.sharedPreferences.edit()) {
-            putString(ACCESSTOKEN, token.accessToken)
-            putString(REFRESHTOKEN, token.refreshToken)
+            putString(ACCESS_TOKEN, token.accessToken)
+            putString(REFRESH_TOKEN, token.refreshToken)
             commit()
         }
     }

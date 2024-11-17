@@ -17,11 +17,14 @@ class SharedPreferenceHelper @Inject constructor(@ApplicationContext context : C
 
 
     companion object {
-        const val ACCESSTOKEN =
+        const val ACCESS_TOKEN =
             "access_token"
 
-        const val REFRESHTOKEN =
+        const val REFRESH_TOKEN =
             "refresh_token"
+
+        const val USER_ID =
+            "user_id"
     }
 
     fun getBoolean(key: String): Boolean = sharedPreferences.getBoolean(key, false)

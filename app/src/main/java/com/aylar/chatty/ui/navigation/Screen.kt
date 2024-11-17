@@ -15,7 +15,7 @@ sealed class Screen(
     )
 
     object Registration : Screen(
-        "code_verification"
+        "registration"
     )
 
     object Dialogs : Screen(

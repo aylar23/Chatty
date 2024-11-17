@@ -69,7 +69,6 @@ fun LoginScreen(
     val focusRequesterPhone = FocusRequester()
 
     Scaffold { padding ->
-
         Column(
             modifier = Modifier
                 .padding(padding)
@@ -80,7 +79,7 @@ fun LoginScreen(
 
             Text(
                 text = stringResource(R.string.your_phone_number),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -91,7 +90,6 @@ fun LoginScreen(
                     .padding(bottom = 16.dp)
                     .fillMaxWidth(0.7f),
             )
-
 
             Row(
                 modifier = Modifier

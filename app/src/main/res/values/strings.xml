@@ -7,4 +7,8 @@
     <string name="your_phone_number">Your phone number</string>
     <string name="your_phone_number_desc">Please confirm your country code and enter your phone number.</string>
     <string name="network_error">Network error</string>
+    <string name="resend">Resend</string>
+    <string name="incorrect_code">Incorrect code</string>
+    <string name="enter_code">Enter verification code</string>
+    <string name="verification">Verification</string>
 </resources>
