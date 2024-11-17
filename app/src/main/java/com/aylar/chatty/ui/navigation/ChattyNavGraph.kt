@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.aylar.chatty.ui.screens.chat.ChatScreen
 import com.aylar.chatty.ui.screens.dialogs.DialogsScreen
 import com.aylar.chatty.ui.screens.login.LoginScreen
 import com.aylar.chatty.ui.screens.register.RegistrationScreen
@@ -77,7 +78,9 @@ fun ChattyNavGraph(
             }
         }
 
-        composable(Screen.Chat.route) {}
+        composable(Screen.Chat.route) {
+            ChatScreen(onNavigateUp = { navController.navigateUp() })
+        }
 
         composable(Screen.Profile.route) {}
 
