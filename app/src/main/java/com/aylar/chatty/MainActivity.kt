@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ChattyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
-                    ChattyNavGraph(isLoggedIn = false)
+                    ChattyNavGraph(isLoggedIn = true)
                 }
             }
         }
