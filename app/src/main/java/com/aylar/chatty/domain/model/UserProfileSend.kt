@@ -15,7 +15,7 @@ data class UserProfileSend(
     val id: Int,
     val last: String?,
     val online: Boolean,
-    val created: String?,
+    val created: String,
     val phone: String,
     @SerializedName("completed_task")
     val completedTask: Int = 0,

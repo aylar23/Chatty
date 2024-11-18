@@ -30,17 +30,12 @@ class ProfileViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<ProfileState> = MutableStateFlow(ProfileState())
     val uiState: StateFlow<ProfileState> = this._uiState
 
-    init {
-        getProfile()
-    }
-
     fun getProfile() {
         viewModelScope.launch {
             _uiState.update { it.updateToLoading() }
             try {
                 userRepository.getCurrentUser()
                     .onSuccess { res ->
-                        Log.e("TAG", "getProfile: "+res )
                         saveProfileData(res.profileData)
                         _uiState.update { it.updateToSuccess(res.profileData) }
                     }
@@ -61,7 +56,7 @@ class ProfileViewModel @Inject constructor(
         sharedPreferenceHelper.put(PHONE, profileData.phone)
         sharedPreferenceHelper.put(USERNAME, profileData.username)
         sharedPreferenceHelper.put(NAME, profileData.name)
-        sharedPreferenceHelper.put(AVATAR, profileData.getUserAvatar())
+        sharedPreferenceHelper.put(AVATAR, profileData.avatars?.avatar)
         sharedPreferenceHelper.put(BIRTHDAY,profileData.birthday )
         sharedPreferenceHelper.put(CITY, profileData.city)
     }

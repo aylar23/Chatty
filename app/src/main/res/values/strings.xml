@@ -21,4 +21,7 @@
     <string name="city">City</string>
     <string name="birthday">Birthday</string>
     <string name="zodiac_sign">Zodiac Sign</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="this_field_must_not_be_empty">This field must not be empty</string>
 </resources>

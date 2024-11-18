@@ -1,5 +1,6 @@
 package com.aylar.chatty.ui.screens.profile
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -24,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -35,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aylar.chatty.R
+import com.aylar.chatty.di.AppModule.Companion.BASE_URL
 import com.aylar.chatty.domain.model.UserProfileSend
 
 
@@ -42,20 +45,25 @@ import com.aylar.chatty.domain.model.UserProfileSend
 @Composable
 fun ProfileScreen(
     profileViewModel: ProfileViewModel,
+    onNavigateToEditProfile: () -> Unit,
     onNavigateUp: () -> Unit
 ) {
     val uiState by profileViewModel.uiState.collectAsState()
 
+    LaunchedEffect(Unit) {
+        profileViewModel.getProfile()
+    }
+
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Profile") },
+            TopAppBar(title = { Text(stringResource(R.string.profile)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 actions = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = onNavigateToEditProfile) {
                         Icon(
                             Icons.Default.Edit,
                             modifier = Modifier.size(20.dp),
@@ -129,7 +137,7 @@ fun ProfileContent(user: UserProfileSend) {
     ) {
 
         AsyncImage(
-            model = user.avatars?.avatar ?: "",
+            model = "$BASE_URL/${user.avatars?.avatar}",
             contentDescription = "User Avatar",
             modifier = Modifier
                 .padding(20.dp)

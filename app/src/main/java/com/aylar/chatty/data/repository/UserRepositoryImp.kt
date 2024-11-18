@@ -1,5 +1,6 @@
 package com.aylar.chatty.data.repository
 
+import android.util.Log
 import com.aylar.chatty.data.remote.UserService
 import com.aylar.chatty.domain.model.Avatars
 import com.aylar.chatty.domain.model.GetCurrentUserProfile

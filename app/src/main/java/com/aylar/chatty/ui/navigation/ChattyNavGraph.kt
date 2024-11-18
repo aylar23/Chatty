@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aylar.chatty.ui.screens.chat.ChatScreen
 import com.aylar.chatty.ui.screens.dialogs.DialogsScreen
+import com.aylar.chatty.ui.screens.editprofile.EditProfileScreen
 import com.aylar.chatty.ui.screens.login.LoginScreen
 import com.aylar.chatty.ui.screens.profile.ProfileScreen
 import com.aylar.chatty.ui.screens.register.RegistrationScreen
@@ -87,12 +88,16 @@ fun ChattyNavGraph(
         composable(Screen.Profile.route) {
             ProfileScreen(
                 profileViewModel = hiltViewModel(),
+                onNavigateToEditProfile = {navController.navigate(Screen.EditProfile.route)},
                 onNavigateUp = { navController.navigateUp()}
             )
         }
 
         composable(Screen.EditProfile.route) {
-
+            EditProfileScreen(
+                editProfileViewModel = hiltViewModel(),
+                onNavigateUp = { navController.navigateUp()}
+            )
         }
 
     }
