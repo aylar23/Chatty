@@ -51,21 +51,4 @@ class LoginViewModel @Inject constructor(
     fun updateToDefault() {
         _uiState.update { it.updateToDefault() }
     }
-
-    fun applyPhoneMask(phoneNumber: String, format: String): String {
-        val digits = phoneNumber.filter { it.isDigit() }
-        val formatted = StringBuilder()
-        var digitIndex = 0
-
-        for (char in format) {
-            if (digitIndex >= digits.length) break
-            if (char == 'X') {
-                formatted.append(digits[digitIndex])
-                digitIndex++
-            } else {
-                formatted.append(char)
-            }
-        }
-        return formatted.toString()
-    }
 }

@@ -150,8 +150,8 @@ fun EditProfileScreen(
     ) { paddding ->
         Column(
             modifier = Modifier
-                .imePadding()
                 .verticalScroll(rememberScrollState())
+                .imePadding()
                 .padding(paddding)
                 .padding(horizontal = 16.dp),
         ) {

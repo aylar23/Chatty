@@ -1,8 +1,8 @@
 package com.aylar.chatty.ui.screens.login
 
-import android.util.Log
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,9 +47,11 @@ import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.aylar.chatty.R
+import com.aylar.chatty.ui.components.CountryPhoneCode
 import com.aylar.chatty.ui.components.CustomTextField
 import com.aylar.chatty.ui.components.countryPhoneCodes
 import com.aylar.chatty.ui.screens.login.components.CountrySelectionDialog
+import java.util.Locale
 
 
 @Composable
@@ -68,35 +71,72 @@ fun LoginScreen(
     val focusRequesterCountryCode = FocusRequester()
     val focusRequesterPhone = FocusRequester()
 
-    Scaffold { padding ->
+    LaunchedEffect(Unit) {
+        val currentCountry = getCurrentCountry()
+        if (currentCountry != null) {
+            loginViewModel.updateCode(currentCountry.code)
+            loginViewModel.updateCountry(currentCountry)
+        }
+    }
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    loginViewModel.login("+$code$phoneNumber") {
+                        onContinue("+$code$phoneNumber")
+                    }
+                },
+                modifier = Modifier
+                    .size(56.dp)
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(26.dp)
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        tint = Color.White,
+                        contentDescription = "Submit",
+                    )
+                }
+            }
+        }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center
         ) {
 
+
             Text(
-                text = stringResource(R.string.your_phone_number),
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 8.dp)
+                text = stringResource(id = R.string.your_phone_number),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
             Text(
                 text = stringResource(R.string.your_phone_number_desc),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .fillMaxWidth(0.7f),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.fillMaxWidth(0.7f)
             )
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.secondaryContainer,
+                    .background(
+                        MaterialTheme.colorScheme.surface,
                         MaterialTheme.shapes.small
                     )
                     .clip(MaterialTheme.shapes.small)
@@ -138,9 +178,8 @@ fun LoginScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(
-                        2.dp,
-                        MaterialTheme.colorScheme.secondaryContainer,
+                    .background(
+                        MaterialTheme.colorScheme.surface,
                         MaterialTheme.shapes.small
                     )
                     .padding(14.dp),
@@ -150,7 +189,7 @@ fun LoginScreen(
                     value = code,
                     onValueChange = {
                         if (it.length < 5) loginViewModel.updateCode(it)
-                        val country = countryPhoneCodes.find { country -> country.code == it }
+                        val country = countryPhoneCodes.reversed().find { country -> country.code == it }
                         if (country != null) {
                             loginViewModel.updateCountry(country)
                             focusRequesterPhone.requestFocus()
@@ -228,30 +267,6 @@ fun LoginScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-
-            FloatingActionButton(
-                onClick = {
-                    loginViewModel.login("+$code$phoneNumber") {
-                        onContinue("+$code$phoneNumber")
-                        Log.e("TAG", "LoginScreen: onContinue", )
-                    }
-                },
-                modifier = Modifier
-                    .size(56.dp)
-                    .align(Alignment.End)
-            ) {
-                if (uiState.isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(26.dp)
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = "Submit",
-                    )
-                }
-            }
         }
 
         if (showCountrySelectionDialog) {
@@ -274,4 +289,9 @@ fun LoginScreen(
             }
         }
     }
+}
+fun getCurrentCountry(): CountryPhoneCode? {
+    val locale = Locale.getDefault()
+    val countryCode = locale.country
+    return countryPhoneCodes.find { it.countryCode == countryCode }
 }
