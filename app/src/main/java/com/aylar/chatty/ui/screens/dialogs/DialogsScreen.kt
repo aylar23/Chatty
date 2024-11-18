@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,7 +25,8 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DialogsScreen(
-    navigateToChat :() -> Unit
+    navigateToChat: () -> Unit,
+    navigateToProfile: () -> Unit
 ) {
 
     val chatList = listOf(
@@ -57,6 +62,16 @@ fun DialogsScreen(
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = Modifier.padding(16.dp)
                     )
+                },
+                actions = {
+                    IconButton(onClick = { navigateToProfile() }) {
+                        Icon(
+                            Icons.Default.AccountCircle,
+                            modifier = Modifier.size(30.dp),
+                            contentDescription = "AccountCircle",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
             )
         }
@@ -67,7 +82,7 @@ fun DialogsScreen(
                 .fillMaxSize()
         ) {
             items(chatList) { chat ->
-                ChatItem(chat = chat){
+                ChatItem(chat = chat) {
                     navigateToChat()
                 }
             }
@@ -76,7 +91,7 @@ fun DialogsScreen(
 }
 
 @Composable
-fun ChatItem(chat: Chat, onClick:() -> Unit) {
+fun ChatItem(chat: Chat, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,7 +114,9 @@ fun ChatItem(chat: Chat, onClick:() -> Unit) {
         }
 
         Text(
-            modifier = Modifier.padding(top = 8.dp).align(Alignment.Top),
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .align(Alignment.Top),
             text = chat.time,
             style = MaterialTheme.typography.bodySmall,
         )

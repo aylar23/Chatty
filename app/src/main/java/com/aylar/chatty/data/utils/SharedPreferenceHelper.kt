@@ -12,19 +12,18 @@ const val USER_SHARED_PREFERENCE = "com.aylar.chatty.sharedpreference_user_share
 @Singleton
 class SharedPreferenceHelper @Inject constructor(@ApplicationContext context : Context) {
 
-
     val sharedPreferences = context.getSharedPreferences(USER_SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
-
     companion object {
-        const val ACCESS_TOKEN =
-            "access_token"
-
-        const val REFRESH_TOKEN =
-            "refresh_token"
-
-        const val USER_ID =
-            "user_id"
+        const val ACCESS_TOKEN = "access_token"
+        const val REFRESH_TOKEN = "refresh_token"
+        const val USER_ID = "user_id"
+        const val PHONE = "phone"
+        const val USERNAME = "username"
+        const val NAME = "name"
+        const val AVATAR = "avatar"
+        const val BIRTHDAY = "birthday"
+        const val CITY = "city"
     }
 
     fun getBoolean(key: String): Boolean = sharedPreferences.getBoolean(key, false)
@@ -35,22 +34,12 @@ class SharedPreferenceHelper @Inject constructor(@ApplicationContext context : C
 
     fun getString(key: String): String? = sharedPreferences.getString(key, null)
 
-    fun put(key: String, value: Int) {
-        sharedPreferences.edit { putInt(key, value) }
-    }
+    fun put(key: String, value: Int) { sharedPreferences.edit { putInt(key, value) } }
 
-    fun put(key: String, value: String?) {
-        sharedPreferences.edit { putString(key, value) }
-    }
+    fun put(key: String, value: String?) { sharedPreferences.edit { putString(key, value) } }
 
-    fun put(key: String, value: Long) {
-        sharedPreferences.edit { putLong(key, value ?: 0L) }
-    }
+    fun put(key: String, value: Long) { sharedPreferences.edit { putLong(key, value ?: 0L) } }
 
-    fun put(key: String, value: Boolean) {
-        sharedPreferences.edit { putBoolean(key, value) }
-    }
-
-    val getInstance = SharedPreferenceHelper
+    fun put(key: String, value: Boolean) { sharedPreferences.edit { putBoolean(key, value) } }
 
 }

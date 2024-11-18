@@ -1,5 +1,6 @@
 package com.aylar.chatty.domain.model
 
+import com.aylar.chatty.di.AppModule.Companion.BASE_URL
 import com.google.gson.annotations.SerializedName
 
 data class UserProfileSend(
@@ -18,5 +19,9 @@ data class UserProfileSend(
     val phone: String,
     @SerializedName("completed_task")
     val completedTask: Int = 0,
-    val avatars: Avatars
-)
+    val avatars: Avatars?
+){
+    fun getUserAvatar(): String {
+        return avatar?.let { "$BASE_URL$avatar" } ?: ""
+    }
+}

@@ -21,7 +21,7 @@ class SynchronizedAuthenticator @Inject constructor(
         val originalRequest = chain.request()
         val authenticatedReq = originalRequest.signedRequest()
         val initResponse = chain.proceed(authenticatedReq)
-        if (initResponse.code() != 401) return initResponse
+        if (initResponse.code != 401) return initResponse
 
         synchronized(this) {
             val refreshToken = refreshTokenWithCode() ?: return initResponse
